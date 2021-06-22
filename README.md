@@ -2,7 +2,7 @@
 
 ## Scope
 
-This is an app for Cargooplot that allows the end user to acomplish the following actions.
+This is an app for Cargoplot that allows the end user to acomplish the following actions.
 
 * Be able to register a new shipment
 * See a list of registered shipments
