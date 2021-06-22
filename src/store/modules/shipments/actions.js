@@ -40,7 +40,7 @@ const getAllShipmentsRequest = async ({ commit }) => {
     axios
       .get("http://localhost:9898/shipment")
       .then(function(response) {
-        commit("SET_SHIPMENT_INTO_LIST_LIST", response.data);
+        commit("SET_SHIPMENTS", response.data);
         resolve(response);
       })
       .catch(function(error) {

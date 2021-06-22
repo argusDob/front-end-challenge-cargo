@@ -1,4 +1,4 @@
-const SET_SHIPMENT_INTO_LIST_LIST = (state, payload) => {
+const SET_SHIPMENTS = (state, payload) => {
   state.shipments.theShipmentsList = payload;
 };
 
@@ -26,7 +26,7 @@ const UPDATE_SHIPMENT = (state, payload) => {
 };
 
 export default {
-  SET_SHIPMENT_INTO_LIST_LIST,
+  SET_SHIPMENTS,
   SET_SHIPMENT_INTO_LIST,
   UPDATE_SHIPMENT
 };
