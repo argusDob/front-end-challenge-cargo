@@ -106,11 +106,11 @@ export default {
     ]),
     ...mapActions("vessel", ["getVesselRequest"]),
     ...mapMutations("notifications", ["SET_ALERT_MESSAGE"]),
-    /**---------------------Emit---------------------------------------- */
+    /**---------------------Events---------------------------------------- */
     /**
      * This function gets all the data from the child form.
      * It creates a shipment obj
-     * Send the constructed shipment to the srver
+     * Send the shipment to the server
      * @param  { Object } formsData
      */
     getDataFromChildForm(formsData) {
@@ -129,8 +129,8 @@ export default {
     },
     /**
      * It gets the row and nested data from the table
-     * Update a a shipment based on the data that are coming
-     * If the function gets the first parameter update shipment-eta based on vessel data
+     * Update a  shipment based on the data that are coming
+     * If the function gets the first parameter, update shipment-eta based on vessel data
      * If the fuction gets the second parameter update a pure shipment.
      * @param  { Object } shipmentVesselData
      * @return { Object }  A object with vessel and shipment data.
@@ -138,7 +138,7 @@ export default {
     isShipmentOrVessel(shipmentVesselData, shipment) {
       if (shipment === null) {
         //it is vessel
-        const theUpdatedShipment = this.updateShipmentBasedOnVessel(
+        const theUpdatedShipment = this.updateShipmentBasedOnVesselETA(
           shipmentVesselData
         );
         this.doUpdateRequest(theUpdatedShipment);
@@ -148,7 +148,7 @@ export default {
         this.doGetShipmentRequest(shipment);
       }
     },
-    /**---------------------End Of Emit---------------------------------------- */
+    /**---------------------End Of Events---------------------------------------- */
 
     /**
      * It opens the form on click
@@ -159,7 +159,7 @@ export default {
 
     /**
      * This function check if the form has all the mandatory fields.
-     * If yes based on the id it create or update a shipment.
+     * If yes based on the id it creates or update a shipment.
      * If not it throw an error on the screen
      * @param  { Object } shipment
      */
@@ -241,14 +241,14 @@ export default {
      * Update shipment obj based on vessel-ETA
      * @param  { Object } shipment
      */
-    updateShipmentBasedOnVessel(shipment) {
+    updateShipmentBasedOnVesselETA(shipment) {
       shipment["shipment-eta"] = shipment["vessel-eta"];
       shipment.delay = 0;
       return shipment;
     },
 
     /**
-     * Construct an obj to get accepted by parent form
+     * Construct an obj to get accepted by child form
      * @param  { Object } shipment
      */
     constructShipmentToGetAcceptedByForm(shipment) {
@@ -262,7 +262,7 @@ export default {
     },
 
     /**
-     * Pass the constructed data to parent form
+     * Pass the constructed data to child form
      * @param  { Object } shipment
      */
     passDataTochildForm(shipment) {
@@ -378,7 +378,7 @@ export default {
       });
     },
     /**
-     * It trigers the alert mutation to shoow msgs on the screen
+     * It trigers the alert mutation to show msgs on the screen
      * @param  { Object } response
      */
     alertMutation(response) {

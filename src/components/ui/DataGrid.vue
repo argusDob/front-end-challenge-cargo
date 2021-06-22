@@ -71,13 +71,13 @@
       </template>
       <template v-slot:item.actions="{ item }">
         <div class="d-flex">
-        <v-icon
-          class="mr-2"
-          color="green darken-2"
-          medium
-          @click="sendRowandNestedDataToParent(null, item)"
-        >mdi-pencil</v-icon>
-        <v-icon color="red" medium disabled>mdi-delete</v-icon>
+          <v-icon
+            class="mr-2"
+            color="green darken-2"
+            medium
+            @click="sendRowandNestedDataToParent(null, item)"
+          >mdi-pencil</v-icon>
+          <v-icon color="red" medium disabled>mdi-delete</v-icon>
         </div>
       </template>
     </v-data-table>
@@ -88,14 +88,14 @@
 import UpdateBtn from "./Button";
 
 export default {
-  name: "ShipmentList",
+  name: "DataGrid",
   components: {
     UpdateBtn
   },
   props: {
-    headers: Array,
-    items: Array,
-    nestedData: Object,
+    headers: { type: Array, required: true },
+    items: { type: Array, required: true },
+    nestedData: { type: Object, required: false },
     loading: { type: Boolean, default: true }
   },
   data: () => ({
@@ -104,12 +104,26 @@ export default {
     search: ""
   }),
   methods: {
+    /**-----------------------------------Events---------------------------------------*/
+    /**
+     * Triggers on expand row action
+     *
+     * @property { Object } value the row data
+     */
     sendRowDataToParent(value) {
       this.$emit("sendRowDataToParent", value);
     },
+        /**
+     * Triggers on update action
+     *
+     * @property { Object } nestedData the nested data
+     * @property { Object } rowData the row data
+
+     */
     sendRowandNestedDataToParent(nestedData, rowData) {
       this.$emit("sendRowandNestedDataToParent", nestedData, rowData);
     }
+    /**-----------------------------------End of Events---------------------------------------*/
   }
 };
 </script>

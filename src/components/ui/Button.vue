@@ -8,8 +8,8 @@
 export default {
   name: "Button",
   props: {
-    color: String,
-    text: String
+    color: { type: String, default: "Primary" },
+    text: { type: String, default: "Button" }
   },
 
   data: () => ({})
