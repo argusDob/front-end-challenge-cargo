@@ -126,7 +126,6 @@ export default {
      * @return { Object } with input values and an id
      */
     onCloseCleanInputs(isSubmit) {
-      console.log("I am here");
       if(isSubmit){
       this.theForm["id"] = undefined;
       this.theForm["input1"] = undefined;
