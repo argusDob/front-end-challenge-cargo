@@ -166,6 +166,7 @@ export default {
     createOrUpdateShipment(shipment) {
       const formIsValid = this.hasShipmentAllRequiredValues(shipment);
       if (formIsValid) {
+        this.$emit('submit', true);
         if (typeof shipment["id"] === "undefined") {
           //create
           this.doSaveRequest(shipment);

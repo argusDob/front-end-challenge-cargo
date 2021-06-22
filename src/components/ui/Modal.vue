@@ -1,5 +1,5 @@
      <template>
-  <v-dialog v-model="show" @input="onCloseCleanInputs()" height="800" width="500">
+  <v-dialog v-model="show" @input="onCloseCleanInputs(true)" height="800" width="500">
     <v-card height="420">
       <v-card-title class="text-h5 grey lighten-2">Create Shipment</v-card-title>
       <v-form>
@@ -63,12 +63,12 @@ export default {
     Button
   },
   props: {
-    inputLabel1: String,
-    inputLabel2: String,
-    inputLabel3: String,
-    items: Array,
-    visible: Boolean,
-    inputData: Object
+    inputLabel1: {type: String, required:false},
+    inputLabel2: {type: String, required:false},
+    inputLabel3: {type: String, required:false},
+    items: {type: Array, required:false},
+    visible: {type: Boolean, required:false},
+    inputData: {type: Object, required:false},
   },
   data: () => ({
     menu2: false,
@@ -95,34 +95,44 @@ export default {
     }
   },
   methods: {
+    /**
+     * Pass inputs data to parent on submit
+     */
     returnDataToParent() {
-      const inputsFormData = this.getFormData();
+      const inputsData = {};
+      const inputsFormData = this.createFormObj(inputsData, this.theForm);
+      this.$parent.$on('submit', this.onCloseCleanInputs);
       this.$emit("passDataToparent", inputsFormData);
     },
-    closeModal() {
-      this.dialog = false;
-    },
-    getFormData() {
-      const inputsFormData = {};
-      inputsFormData["id"] = this.theForm.id;
-      this.createFormObj(inputsFormData, this.theForm);
-      return inputsFormData;
-    },
+    /**
+     * Get input data from parent on edit
+     */
     fillInInputsFromParent(value) {
-      this.theForm.id = value.id;
       this.createFormObj(this.theForm, value);
     },
+    /**
+     * create an object with inputs data
+     */
     createFormObj(inputsFormData, theForm) {
+      inputsFormData.id = theForm.id;
       inputsFormData["input1"] = theForm["input1"];
       inputsFormData["input2"] = theForm["input2"];
       inputsFormData["input3"] = theForm["input3"];
       return inputsFormData;
     },
-    onCloseCleanInputs() {
+    /**
+     * Empty form on close event
+     *
+     * @return { Object } with input values and an id
+     */
+    onCloseCleanInputs(isSubmit) {
+      console.log("I am here");
+      if(isSubmit){
       this.theForm["id"] = undefined;
       this.theForm["input1"] = undefined;
       this.theForm["input2"] = undefined;
       this.theForm["input3"] = undefined;
+      }
     }
   }
 };
